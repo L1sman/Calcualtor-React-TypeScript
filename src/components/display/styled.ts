@@ -8,7 +8,6 @@ export const StyledDisplay = styled.div`
   text-align: right;
   margin-bottom: 2px;
 `;
-
 export const StyledDisplayHistory = styled.div`
   height: 40%;
   font-size: 12px;
