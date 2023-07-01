@@ -78,12 +78,22 @@ class Calculator extends React.PureComponent<{}, CalculatorState> {
       }
 
       if (digits.includes(value)) {
-        this.setState((state) => ({
-          isFinish: false,
-          currentValue: state.currentValue + btnValue,
-          operator: '',
-        }));
+        if (value === '.' && currentValue.includes('.')) {
+          this.setState((state) => ({
+            isFinish: false,
+            currentValue: state.currentValue,
+            operator: '',
+          }));
+        } else {
+          this.setState((state) => ({
+            isFinish: false,
+            currentValue: state.currentValue + btnValue,
+            operator: '',
+          }));
+        }
       }
+      console.log(currentValue)
+
 
       if (operators.includes(value)) {
         let newExpression = value === '=' ? currentValue : currentValue + btnValue;
