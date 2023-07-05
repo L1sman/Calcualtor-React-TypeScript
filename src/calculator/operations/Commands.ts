@@ -1,8 +1,8 @@
-import { AddCommand } from './addComand';
-import { SubCommand } from './subComand';
-import { DivCommand } from './divCommand';
+import { AddCommand } from './AddComand';
+import { SubCommand } from './SubComand';
+import { DivCommand } from './DivCommand';
 import { MulCommand } from './MulCommand';
-import { RestCommand } from './restCommand';
+import { RestCommand } from './RestCommand';
 
 export class Commands {
   addCommand: { value: string; execute: (currentValue: string) => number };

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ButtonProps } from "./types";
-import { StyledButton } from './styled';
-class Button extends React.PureComponent<ButtonProps> {
+import { ButtonProp } from "./ButtonProp";
+import { StyledButton } from './ButtonStyle';
+class Button extends React.PureComponent<ButtonProp> {
   render(): React.ReactNode
     {
       const {className, value, onButtonClick } = this.props

@@ -1,4 +1,4 @@
-export type DisplayProps = {
+export type DisplayProp = {
   output: string,
   displayHistory: string,
 };

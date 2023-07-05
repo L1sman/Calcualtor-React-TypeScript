@@ -1,16 +1,16 @@
 import React from 'react';
 
-import Display from '../components/display/Display';
-import KeyPad from '../components/keyPad/KeyPad';
+import Display from './components/display/Display';
+import KeyPad from './components/keypad/KeyPad';
 
 import {
   CalculatorState,
   SignClickHandler,
-} from './type';
+} from './CalculatorType';
 
-import {StyledCalculator} from './styled';
-import {digits, operators, signs} from '../components/constants/buttons';
-import {calculating, checkOperatorDuplicate} from '../functions/calcLogic';
+import {StyledCalculator} from './CalculatorStyle';
+import {digits, operators, signs} from './constants/Buttons';
+import {calculating, checkOperatorDuplicate} from './operations/CalcLogic';
 
 class Calculator extends React.PureComponent<{}, CalculatorState> {
   constructor(props: {}) {
@@ -39,31 +39,35 @@ class Calculator extends React.PureComponent<{}, CalculatorState> {
     }
   }
 
+  _resetHandler = () => {
+    this.setState({
+      currentValue: '',
+      expression: '',
+      operator: '',
+      result: '',
+      isFinish: false,
+    });
+  }
+  _cleanEntryHandler = () => {
+    this.setState({currentValue: ' ', result: ''});
+  };
+
+  _invertHandler = () => {
+    this.setState({currentValue: String(+this.state.currentValue * -1)});
+  };
+  _backHandler = () => {
+    this.setState({currentValue: this.state.currentValue.slice(0, this.state.currentValue.length - 1)});
+  };
+
 
   render() {
     const {expression, currentValue, operator, result, isFinish, output} = this.state;
-    const resetHandler = () => {
-      this.setState({
-        currentValue: '',
-        expression: '',
-        operator: '',
-        result: '',
-        isFinish: false,
-      });
-    };
-
-    const cleanEntryHandler = () => this.setState({currentValue: '', result: ''});
-
-    const invertHandler = () => this.setState({currentValue: String(+currentValue * -1)});
-
-    const backHandler = () =>
-      this.setState({currentValue: currentValue.slice(0, currentValue.length - 1)});
 
     const signClickHandler: SignClickHandler = {
-      C: resetHandler,
-      CE: cleanEntryHandler,
-      '←': backHandler,
-      '±': invertHandler,
+      C: this._resetHandler,
+      CE: this._cleanEntryHandler,
+      '←': this._backHandler,
+      '±': this._invertHandler,
     };
 
     const buttonClickHandler = (value: string) => {
@@ -92,7 +96,6 @@ class Calculator extends React.PureComponent<{}, CalculatorState> {
           }));
         }
       }
-      console.log(currentValue)
 
 
       if (operators.includes(value)) {
@@ -110,6 +113,13 @@ class Calculator extends React.PureComponent<{}, CalculatorState> {
         this.setState({isFinish: false});
       } else {
         this.setState({isFinish: true, operator: ''});
+      }
+      if (value === ')' && !expression.includes('(')) {
+        this.setState({
+          currentValue: '',
+          operator: '',
+          expression: ''
+        });
       }
     };
     return (

@@ -1,4 +1,4 @@
-import { Calculator } from './Calculator';
+import { CalcSession } from './CalcSession';
 
 const sign = '+-x/%';
 
@@ -14,7 +14,7 @@ export const calculating = (expression: string) => {
   const arr = expression.split(' ');
   const values: string[] = [];
   const operators: string[] = [];
-  const calculator = new Calculator();
+  const calculator = new CalcSession();
 
   for (let i = 0; i < arr.length; i += 1) {
     if (arr[i] !== '') {
@@ -23,7 +23,7 @@ export const calculating = (expression: string) => {
       } else if (arr[i] === '(') {
         operators.push(arr[i]);
       } else if (arr[i] === ')') {
-        while (operators[operators.length - 1] !== '(') {
+        while (operators[operators.length - 1] !== '(' && operators.length !== 0) {
           const operator = operators.pop();
           const currentValue = values.pop();
           const previousValue = values.pop();

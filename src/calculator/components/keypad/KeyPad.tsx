@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Button from '../button/Button';
-import { buttons } from '../constants/buttons';
-import { KeyPadProps } from './types';
-import { StyledKeyPad } from './styled';
+import { buttons } from '../../constants/Buttons';
+import { KeyPadProp } from './KeyPadProp';
+import { StyledKeyPad } from './KeyPadStyle';
 
-class KeyPad extends React.PureComponent<KeyPadProps> {
+class KeyPad extends React.PureComponent<KeyPadProp> {
   render(): React.ReactNode {
     const { onButtonClick } = this.props;
 

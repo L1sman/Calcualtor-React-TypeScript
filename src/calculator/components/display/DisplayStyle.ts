@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 export const StyledDisplay = styled.div`
-  width: inherit;
+  width: 100%;
   height: 100px;
-  background-color: #1c1f20;
-  border: 1px solid black;
-  border-radius: 5px;
+  background-color: rgb(33, 35, 38);
   text-align: right;
-  margin-bottom: 2px;
+  padding-right: 5px;
 `;
 export const StyledDisplayHistory = styled.div`
   height: 40%;

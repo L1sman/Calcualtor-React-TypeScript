@@ -1,24 +1,36 @@
 import styled, { css } from 'styled-components';
 
 const btnCommon = css`
-  width: 60px;
-  height: 60px;
-  background: rgb(72, 72, 74);
+  background: rgb(75, 77, 78);
+  &:hover,
+  &:focus-visible {
+    background-color: #a8a5a5;
+  }
+  &:active {
+    background-color: rgb(144, 145, 145);
+  }
 `;
 
 const btnResult = css`
-  width: 60px;
-  height: 100%;
   grid-column: 5 / auto;
   grid-row: 4/6;
   background: rgb(254, 141, 14);
+  &:hover,
+  &:focus-visible {
+    background-color: rgb(254 , 160 , 50);
+  }
+  &:active {
+    background-color: rgb(190, 106, 11);
+  }
 `;
 
 const btnNull = css`
-  width: 100%;
-  height: 60px;
   grid-column: 1/3;
   background: rgb(72, 72, 74);
+  &:hover,
+  &:focus-visible {
+    background-color: #a8a5a5;
+  }
 `;
 
 const getBtnStyle = (className: string) => {
@@ -28,16 +40,11 @@ const getBtnStyle = (className: string) => {
   return btnCommon;
 };
 export const StyledButton = styled.button<{ className: string }>`
-  ${({ className }) => getBtnStyle(className)};
-  border: 1px solid black;
-  outline: none;
-  border-radius: 10px;
+  ${({ className }) => css`${getBtnStyle(className)}`};
+  width: 100%;
+  height: 100%;
   font-size: 25px;
   color: white;
-  
-  &:hover,
-  &:focus-visible {
-    background-color: #a8a5a5;
-  }
-  
+  outline: none;
+  border: 0.5px solid black;
 `;
