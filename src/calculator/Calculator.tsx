@@ -49,7 +49,7 @@ class Calculator extends React.PureComponent<{}, CalculatorState> {
     });
   }
   _cleanEntryHandler = () => {
-    this.setState({currentValue: ' ', result: ''});
+    this.setState({currentValue: '', result: ''})
   };
 
   _invertHandler = () => {
@@ -58,75 +58,71 @@ class Calculator extends React.PureComponent<{}, CalculatorState> {
   _backHandler = () => {
     this.setState({currentValue: this.state.currentValue.slice(0, this.state.currentValue.length - 1)});
   };
+   signClickHandler: SignClickHandler = {
+    C: this._resetHandler,
+    CE: this._cleanEntryHandler,
+    '←': this._backHandler,
+    '±': this._invertHandler,
+  };
+  _buttonClickHandler = (value: string) => {
+    if (this.state.operator === value) return;
 
+    const btnValue = operators.includes(value) ? ` ${value} ` : value;
+    const checkedExpression = checkOperatorDuplicate(this.state.operator, value, this.state.expression);
 
-  render() {
-    const {expression, currentValue, operator, result, isFinish, output} = this.state;
+    if (signs.includes(value)) {
+      const operation = this.signClickHandler[value];
+      operation();
+    }
 
-    const signClickHandler: SignClickHandler = {
-      C: this._resetHandler,
-      CE: this._cleanEntryHandler,
-      '←': this._backHandler,
-      '±': this._invertHandler,
-    };
-
-    const buttonClickHandler = (value: string) => {
-      if (operator === value) return;
-
-      const btnValue = operators.includes(value) ? ` ${value} ` : value;
-      const checkedExpression = checkOperatorDuplicate(operator, value, expression);
-
-      if (signs.includes(value)) {
-        const operation = signClickHandler[value];
-        operation();
-      }
-
-      if (digits.includes(value)) {
-        if (value === '.' && currentValue.includes('.')) {
-          this.setState((state) => ({
-            isFinish: false,
-            currentValue: state.currentValue,
-            operator: '',
-          }));
-        } else {
-          this.setState((state) => ({
-            isFinish: false,
-            currentValue: state.currentValue + btnValue,
-            operator: '',
-          }));
-        }
-      }
-
-
-      if (operators.includes(value)) {
-        let newExpression = value === '=' ? currentValue : currentValue + btnValue;
-        if (isFinish) {
-          newExpression = result + btnValue;
-        }
+    if (digits.includes(value)) {
+      if (value === '.' && this.state.currentValue.includes('.')) {
         this.setState((state) => ({
-          currentValue: '',
-          operator: value,
-          expression: checkedExpression || state.expression + newExpression,
+          isFinish: false,
+          currentValue: state.currentValue,
+          operator: '',
+        }));
+      } else {
+        this.setState((state) => ({
+          isFinish: false,
+          currentValue: state.currentValue + btnValue,
+          operator: '',
         }));
       }
-      if (value !== '=') {
-        this.setState({isFinish: false});
-      } else {
-        this.setState({isFinish: true, operator: ''});
+    }
+
+
+    if (operators.includes(value)) {
+      let newExpression = value === '=' ? this.state.currentValue : this.state.currentValue + btnValue;
+      if (this.state.isFinish) {
+        newExpression = this.state.result + btnValue;
       }
-      if (value === ')' && !expression.includes('(')) {
-        this.setState({
-          currentValue: '',
-          operator: '',
-          expression: ''
-        });
-      }
-    };
+      this.setState((state) => ({
+        currentValue: '',
+        operator: value,
+        expression: checkedExpression || state.expression + newExpression,
+      }));
+    }
+    if (value !== '=') {
+      this.setState({isFinish: false});
+    } else {
+      this.setState({isFinish: true, operator: ''});
+    }
+    if (value === ')' && !this.state.expression.includes('(')) {
+      this.setState({
+        currentValue: '',
+        operator: '',
+        expression: ''
+      });
+    }
+  };
+
+  render() {
     return (
       <StyledCalculator>
         <div className="main-block">
-          <Display output={output} displayHistory={expression}/>
-          <KeyPad onButtonClick={buttonClickHandler}/>
+          <Display output={this.state.output} displayHistory={this.state.expression}/>
+          <KeyPad onButtonClick={this._buttonClickHandler}/>
         </div>
       </StyledCalculator>
     );
