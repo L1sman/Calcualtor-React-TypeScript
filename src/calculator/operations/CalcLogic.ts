@@ -1,4 +1,4 @@
-import { CalcSession } from './CalcSession';
+import {CalcSession} from './CalcSession';
 
 const sign = '+-x/%';
 

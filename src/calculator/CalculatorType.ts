@@ -10,3 +10,5 @@ export type CalculatorState = {
 export type SignClickHandler = {
   [key: string]: () => void;
 };
+
+export type CalculatorProps = {};

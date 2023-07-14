@@ -2,7 +2,7 @@ import { AddCommand } from './AddComand';
 import { SubCommand } from './SubComand';
 import { DivCommand } from './DivCommand';
 import { MulCommand } from './MulCommand';
-import { RestCommand } from './RestCommand';
+import { PercentCommand } from './PercentCommand';
 
 export class Commands {
   addCommand: { value: string; execute: (currentValue: string) => number };
@@ -31,7 +31,7 @@ export class Commands {
         break;
       }
       case '%': {
-        this.command = new RestCommand(secondValue);
+        this.command = new PercentCommand(secondValue);
         break;
       }
       default:
