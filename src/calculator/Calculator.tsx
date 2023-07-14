@@ -6,7 +6,7 @@ import KeyPad from './components/keypad/KeyPad';
 import {CalculatorProps, CalculatorState, SignClickHandler,} from './CalculatorType';
 
 import {StyledCalculator} from './CalculatorStyle';
-import {operators} from './constants/Buttons';
+import {operators} from './constants/ButtonsList';
 import {calculating, checkOperatorDuplicate} from './operations/CalcLogic';
 
 class Calculator extends React.PureComponent<CalculatorProps, CalculatorState> {

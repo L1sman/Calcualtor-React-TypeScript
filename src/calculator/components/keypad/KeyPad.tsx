@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '../button/Button';
-import {buttons, digits, operators, signs} from '../../constants/Buttons';
+import {buttonsList, digits, operators, signs} from '../../constants/ButtonsList';
 import {KeyPadProp} from './KeyPadProp';
 import {StyledKeyPad} from './KeyPadStyle';
 
@@ -22,7 +22,7 @@ class KeyPad extends React.PureComponent<KeyPadProp> {
     }
     return (
       <StyledKeyPad>
-        {buttons.map(({id, className, value}) => (
+        {buttonsList.map(({id, className, value}) => (
           <Button
             key={id}
             className={className}

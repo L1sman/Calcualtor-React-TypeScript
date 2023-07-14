@@ -1,4 +1,4 @@
-export const buttons = [
+export const buttonsList = [
   {id: 1, className: '', value: 'C'},
   {id: 2, className: '', value: 'CE'},
   {id: 3, className: '', value: '←'},
